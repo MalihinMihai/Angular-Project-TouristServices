@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{ folder }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding-top>
+    <div class="roundshape"></div>
+    <div class="text-block-welcome"><p>WELCOME!</p></div>
+    <div class="text-block-signin"><p>SIGN IN ...</p></div>
+    <form #form="ngForm" (ngSubmit)="login(form)" method="post">
+        <ion-item>
+            <ion-label position="floating" style="text-align:center">Email</ion-label>
+            <ion-input ngModel type="email" name="email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating center" style="text-align:center">Password</ion-label>
+            <ion-input ngModel type="password" name="password"></ion-input>
+        </ion-item>
+<ion-button type="submit" expand="block">SIGN IN</ion-button>
+    </form>
+</ion-content>
