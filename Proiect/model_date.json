@@ -1,0 +1,36 @@
+"Login" : {
+	"type" : "object",
+	"title" : "Login",
+	"proprietati" : {
+		"Email" : {
+		
+		"type":"string",
+		"required" : true,
+		"maxLength" : 100
+		
+		"Password" : {
+		"type": "string",
+		"required" : true,
+		"maxLength": 10
+		}
+	}
+  }	
+	
+}
+"Marker": {
+
+	"type" : "object",
+	"lat" : "number",
+	"lng" : "number",
+	"title": "string"
+}
+
+"Location_card": {
+	
+	"location_name" : "string",
+	"picture" : "string",
+	"about_location" : "string"
+		"Contact" : {
+	"phone" : "number",
+	}
+}
