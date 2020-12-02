@@ -3,10 +3,10 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\about",
     "\\src\\app\\folder",
-    "\\src\\app\\login"
+    "\\src\\app\\login",
+    "\\src\\app\\maps"
   ],
-  "SelectedNode": "\\src\\app\\app.component.ts",
+  "SelectedNode": "\\src\\app\\login\\login.page.ts",
   "PreviewInSolutionExplorer": false
 }
