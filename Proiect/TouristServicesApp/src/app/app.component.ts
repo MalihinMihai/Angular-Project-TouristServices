@@ -12,6 +12,7 @@ import { Router, RouterEvent, NavigationEnd } from '@angular/router';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
+  isloggedin=true;
     public selectedIndex = 0;
     public appPages = [
    
