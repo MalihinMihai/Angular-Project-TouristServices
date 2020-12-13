@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ViewChild, ElementRef } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 declare var google: any;
 
 @Component({
@@ -10,28 +11,45 @@ declare var google: any;
 export class MapsPage implements OnInit {
 
   map:any;
+  latiutude_g:any;
+  longitude_g:any;
   @ViewChild('map',{read: ElementRef, static: false}) mapRef: ElementRef;
 
   //Markere
   info_content: any = [];
   markers: any = [
     {
-        nume: "Marker 1",
+        nume: "Nume locatie",
         latitudine: "45.648129",
-        longitudine: "25.569335"
+        longitudine: "25.569335",
+        despre:"Descriere locatie"
+        
     },
     {
-      nume: "Marker 2",
+      nume: "Nume locatie",
       latitudine: "45.653705",
-      longitudine: "25.598465"
+      longitudine: "25.598465",
+      despre:"Descriere locatie"
 
       
     }
   ];
 
 
-   constructor() {}
-   ionViewDidEnter(){
+   constructor( private geolocation: Geolocation) {}
+  //Implementare geolocatie
+  ngAfterViewInit() : void 
+  {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.latiutude_g=resp.coords.latitude
+      this.longitude_g=resp.coords.longitude
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
+     
+  }
+
+  ionViewDidEnter(){
    this.showMap();
     }
 
@@ -54,10 +72,9 @@ export class MapsPage implements OnInit {
     info(marker) {
       //Afiseaza nume,latitune,logitudine sau informatii despre locatie
       let content = '<div id="content">' +
-                                '<h2 id="firstHeading" class"firstHeading">' + marker.nume + '</h2>' +
-                                '<p>Latitude: ' + marker.latitudine + '</p>' +
-                                '<p>Longitude: ' + marker.longitudine + '</p>' +
-                              '</div>';
+                                '<br><br><br><center><h6 id="firstHeading" class"firstHeading">' + marker.nume + '</h6></center>' +
+                                '<p>Despre: ' + marker.despre + '</p>'
+                                '</div>';
   
       let infoWindow = new google.maps.InfoWindow({
         content: content
@@ -87,6 +104,7 @@ export class MapsPage implements OnInit {
 this.map = new google.maps.Map(this.mapRef.nativeElement,options);
 //Adaugarea markerelor din lista de markere
 this.addmarker(this.markers);
+
 }
 
 
