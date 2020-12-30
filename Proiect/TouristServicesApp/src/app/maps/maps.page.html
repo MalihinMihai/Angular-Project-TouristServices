@@ -2,13 +2,48 @@
     <ion-toolbar>
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
+           
         </ion-buttons>
         <ion-title>{{ folder }}</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <div #map id="map"></div>
+<ion-content> <google-map
+  height="90%"
+  width="100%"
+  [zoom]="zoom"
+  [center]="center"
+  [options]="options"
+  (mapClick)="click($event)">
+  <map-marker
+    #markerElem
+    *ngFor="let marker of markers"
+    [position]="marker.position"
+    [label]="marker.label"
+    [title]="marker.title"
+    [options]="marker.options"
+    #somemarker="mapMarker"
+    (mapClick)="openInfo(somemarker, marker.info)">
+  </map-marker>
+  <map-info-window>{{ infoContent }}</map-info-window>
+</google-map>
 
-    
+<ion-button shape="round" (click)="zoomIn()">Find places</ion-button>
+
+<ion-button shape="round" (click)="zoomOut()">My Location</ion-button>
+ 
+
+
+
+
+
 </ion-content>
+
+
+
+<!--<div #map id="map"></div>-->
+    
+    
+
+
+

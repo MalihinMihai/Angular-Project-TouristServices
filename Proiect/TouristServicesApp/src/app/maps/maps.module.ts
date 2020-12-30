@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { GoogleMapsModule } from '@angular/google-maps'
+
+
 
 import { IonicModule } from '@ionic/angular';
 
@@ -14,9 +16,10 @@ import { MapsPage } from './maps.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    MapsPageRoutingModule
+    MapsPageRoutingModule,
+    GoogleMapsModule
   ],
   declarations: [MapsPage],
-  providers:[Geolocation]
+  providers:[]
 })
 export class MapsPageModule {}

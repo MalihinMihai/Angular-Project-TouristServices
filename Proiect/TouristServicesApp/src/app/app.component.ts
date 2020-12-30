@@ -31,11 +31,7 @@ export class AppComponent implements OnInit {
       url: '/login',
       icon: 'heart'
     },
-    {
-      title: 'Exit',
-      url: '/folder/Exit',
-      icon: 'archive'
-    },
+   
   
   ];
   

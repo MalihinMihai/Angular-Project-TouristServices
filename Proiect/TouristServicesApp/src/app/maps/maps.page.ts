@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ViewChild, ElementRef } from '@angular/core';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
-declare var google: any;
+import {ViewChild, ElementRef, } from '@angular/core';
+import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
 
 @Component({
   selector: 'app-maps',
@@ -10,105 +9,116 @@ declare var google: any;
 })
 export class MapsPage implements OnInit {
 
-  map:any;
-  latiutude_g:any;
-  longitude_g:any;
-  @ViewChild('map',{read: ElementRef, static: false}) mapRef: ElementRef;
+  @ViewChild(GoogleMap, { static: false }) map: GoogleMap
+  @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
 
-  //Markere
-  info_content: any = [];
-  markers: any = [
-    {
-        nume: "Nume locatie",
-        latitudine: "45.648129",
-        longitudine: "25.569335",
-        despre:"Descriere locatie"
-        
-    },
-    {
-      nume: "Nume locatie",
-      latitudine: "45.653705",
-      longitudine: "25.598465",
-      despre:"Descriere locatie"
-
-      
-    }
-  ];
-
-
-   constructor( private geolocation: Geolocation) {}
-  //Implementare geolocatie
-  ngAfterViewInit() : void 
-  {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.latiutude_g=resp.coords.latitude
-      this.longitude_g=resp.coords.longitude
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
-     
+  zoom = 12
+  center: google.maps.LatLngLiteral
+  options: google.maps.MapOptions = {
+    zoomControl: true,
+    scrollwheel: true,
+    disableDoubleClickZoom: true,
+    mapTypeId: 'hybrid',
+    maxZoom: 15,
+    minZoom: 8,
   }
+  markers = [
+    {
+      position:
+      {
+        lat: 45.651879,
+        lng:25.598016
+      },
+      label:
+      {
+        color : 'red',
+        text:"Marker"
+      },
+      title:"Marker",
+      info:"asd",
 
-  ionViewDidEnter(){
-   this.showMap();
-    }
+     options:
+     {
+      animation: google.maps.Animation.DROP
+     }
+},
+{
+  position:
+      {
+        lat: 45.653707,
+        lng:25.599260
+      },
+      label:
+      {
+        color : 'green',
+        text:"Marker"
+      },
+      title:"Marker",
+      info:"Hellow",
 
-    //Metoda adaugare marker
-    addmarker(markers) {
-      for (let marker of markers) {
-        let position = new google.maps.LatLng(marker.latitudine, marker.longitudine);
-        let mapMarker = new google.maps.Marker({
-          position: position,
-          nume: marker.nume,
-          latitudine: marker.latitudine,
-          longitudine: marker.longitudine
-        });
-  
-        mapMarker.setMap(this.map);
-        this.info(mapMarker);
-      }
-    }
-    //Fereastra pentru afisarea informatiilor din marker
-    info(marker) {
-      //Afiseaza nume,latitune,logitudine sau informatii despre locatie
-      let content = '<div id="content">' +
-                                '<br><br><br><center><h6 id="firstHeading" class"firstHeading">' + marker.nume + '</h6></center>' +
-                                '<p>Despre: ' + marker.despre + '</p>'
-                                '</div>';
-  
-      let infoWindow = new google.maps.InfoWindow({
-        content: content
-      });
-      //Listener pentru click - tap pe marker
-      marker.addListener('click', () => {
-        this.closeAllInfoWindows();
-        infoWindow.open(this.map, marker);
-      });
-      this.info_content.push(infoWindow);
-    }
-  
-    closeAllInfoWindows() {
-      for(let window of this.info_content) {
-        window.close();
-      }
-    }
+     options:
+     {
+      animation: google.maps.Animation.DROP
+     }
+}
+
     
-    //Metoda harta
-    showMap(){
-    const location = new google.maps.LatLng(45.648129, 25.569335);
-    const options = {
-    center: location,
-    zoom: 15,
-    disableDefaultUI: true
-}
-this.map = new google.maps.Map(this.mapRef.nativeElement,options);
-//Adaugarea markerelor din lista de markere
-this.addmarker(this.markers);
-
-}
-
+  ];
+  infoContent;
+  
 
   ngOnInit() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.center = {
+        lat: 45.651879,
+        lng: 25.598016,
+      }
+    })
   }
 
+  zoomIn() {
+    if (this.zoom < this.options.maxZoom) this.zoom++
+  }
+
+  zoomOut() {
+    if (this.zoom > this.options.minZoom) this.zoom--
+  }
+
+  click(event: google.maps.MouseEvent) {
+    console.log(event)
+  }
+
+  logCenter() {
+    console.log(JSON.stringify(this.map.getCenter()))
+  }
+
+  addMarker() {
+    this.markers.push({
+      position: {
+        lat: 45.651879,
+        lng: 25.598016
+      },
+      label: {
+        color: 'red',
+        text: 'Marker label ' + (this.markers.length + 1),
+      },
+      title: 'Marker title ' + (this.markers.length + 1),
+      info: 'Marker info ' + (this.markers.length + 1),
+      options: {
+        animation: google.maps.Animation.DROP,
+      },
+    })
+
+
+    
+  }
+
+  openInfo(marker: MapMarker, content) {
+    this.infoContent = content
+    this.info.open(marker)
+  }
+
+ 
 }
+
+

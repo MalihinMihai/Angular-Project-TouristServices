@@ -14,6 +14,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import firebaseConfig from './firebase'
 
 
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -22,7 +24,8 @@ import firebaseConfig from './firebase'
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    
     
     
   ],
