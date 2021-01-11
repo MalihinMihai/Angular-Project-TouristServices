@@ -1,0 +1,37 @@
+<!-- Header-->
+<ion-header [translucent]="true">
+  
+  <ion-toolbar>
+    
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>{{ folder }} <ion-button (click)="back()">Back</ion-button></ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- Header-->
+
+<ion-content>
+  <br>
+  <br>
+  <h4 style="color:rgb(255, 255, 255)">Filtreaza dupa locatie</h4>
+  <input  type="text" #myInput [(ngModel)]="Locatie" (input)="Search()"/>
+  <table class="table">
+    <tr>
+    
+    <th><p style="color:rgb(255, 196, 0)">Nume</p></th>
+    <th><p style="color:rgb(255, 196, 0)">Locatie</p></th>
+    <th><p style="color:rgb(0, 255, 106)">Pret</p></th>
+    </tr>
+    
+    <tr *ngFor='let l of locatii'>
+      <td style="color:rgb(255, 255, 255)" >{{l.Nume}}</td>
+      <td  style="color:rgb(255, 255, 255)"  >{{l.Locatie}}</td>
+      <td  style="color:rgb(255, 255, 255)" >{{l.Pret}}</td>
+    </tr>
+    
+    
+    </table>
+
+
+</ion-content>

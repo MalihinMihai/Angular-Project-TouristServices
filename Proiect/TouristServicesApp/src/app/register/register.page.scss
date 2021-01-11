@@ -1,0 +1,66 @@
+ion-button {
+    --background: linear-gradient(180deg, rgba(210,162,56,1) 0%, rgba(250,187,16,1) 53%);
+    padding-left: 60px;
+    padding-right: 60px;
+    border-radius: 10px !important;
+    position: relative;
+    top:70px;
+    
+    
+}
+ion-content {
+    --background: #344955;
+
+}
+ion-toolbar {
+    --background: #344955;
+}
+
+ion-menu-button
+{
+    color:white;
+}
+
+ion-item {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 50px;
+    --border-radius:15px;
+    position: relative;
+    top: 1px;
+}
+
+ion-header {
+    --background: #344955;
+}
+
+.roundshape {
+    position: relative;
+    height: 250px;
+    width: 422px;
+    background-color: #f9aa33;
+    border-radius: 150px;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius:45px;
+    top: 0px;
+    left: 50px;
+    padding-left: 1500px;
+    transform: skew(0deg);
+    -webkit-transform: skew(0deg);
+}
+
+.text-block-welcome {
+    position: absolute;
+    font-size:55px;
+    color: white;
+    padding-left: 80px;
+    top:20px;
+}
+
+.text-block-signin {
+    position: absolute;
+    font-size: 23px;
+    color: white;
+    padding-left: 250px;
+    top: 150px;
+}

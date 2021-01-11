@@ -5,21 +5,27 @@
         </ion-buttons>
         <ion-title>{{ folder }}</ion-title>
     </ion-toolbar>
-</ion-header>
-
-<ion-content padding-top>
+  </ion-header>
+  
+  <ion-content padding-top>
     <div class="roundshape"></div>
     <div class="text-block-welcome"><p>WELCOME!</p></div>
     <div class="text-block-signin"><p>SIGN IN ...</p></div>
-    <form #form="ngForm" (ngSubmit)="login(form)" method="post">
+    <form>
         <ion-item>
             <ion-label position="floating" style="text-align:center">Email</ion-label>
-            <ion-input [(ngModel)]="email" name="email"></ion-input>
+            <ion-input type="text" #Email></ion-input>
         </ion-item>
         <ion-item>
             <ion-label  position="floating center" style="text-align:center">Password</ion-label>
-            <ion-input [(ngModel)]="parola" name="parola" type="password"></ion-input>
+            <ion-input type="text" #Password></ion-input>
         </ion-item>
-<ion-button (click)="login()"type="submit" expand="block">SIGN IN</ion-button>
+       
+  <ion-button (click)="login(Email.value,Password.value)"type="submit" expand="block">SIGN IN</ion-button>
+  <br>
+  <br>
+  <ion-button (click)="register()"expand="block">SIGN UP</ion-button>
     </form>
-</ion-content>
+ </ion-content>
+  
+

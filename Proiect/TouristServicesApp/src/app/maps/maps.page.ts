@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import {ViewChild, ElementRef, } from '@angular/core';
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
+import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { FirebaseService } from '../services/firebase.service';
 
 @Component({
   selector: 'app-maps',
@@ -9,33 +12,38 @@ import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
 })
 export class MapsPage implements OnInit {
 
+  //Event pentru Logout
+  @Output() Logout = new EventEmitter<void>();
+  //Decorator google map
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
 
   zoom = 12
   center: google.maps.LatLngLiteral
   options: google.maps.MapOptions = {
-    zoomControl: true,
+    zoomControl: false,
     scrollwheel: true,
     disableDoubleClickZoom: true,
-    mapTypeId: 'hybrid',
-    maxZoom: 15,
+    mapTypeId: 'roadmap',
+    maxZoom: 25,
     minZoom: 8,
   }
+  //Markere
+  infoContent;
   markers = [
     {
       position:
       {
-        lat: 45.651879,
-        lng:25.598016
+        lat:  45.64864999896468,
+        lng:  25.598440439147943
       },
       label:
       {
-        color : 'red',
-        text:"Marker"
+        color:"white",
+        text:"Hotel Ambient"
       },
-      title:"Marker",
-      info:"asd",
+      title:"Hotel Ambient",
+      info:"Nume: Hotel Ambient - Adresa: Strada Lungă 75, Brașov 500035 - Telefon: 0268 416 080 - Tip-Serviciu : Cazare",
 
      options:
      {
@@ -45,54 +53,100 @@ export class MapsPage implements OnInit {
 {
   position:
       {
-        lat: 45.653707,
-        lng:25.599260
+        lat: 45.6490002,
+        lng: 25.5827594
       },
       label:
       {
-        color : 'green',
-        text:"Marker"
+        color : 'white',
+        text:"Vila Lucky"
       },
-      title:"Marker",
-      info:"Hellow",
+      title:"Vila Lucky",
+      info:"Nume: Vila Lucky - Adresa: Strada Lungă 75, Brașov 500035 - Telefon: 0268 416 080 - Tip-Serviciu : Cazare",
 
      options:
      {
       animation: google.maps.Animation.DROP
-     }
+     },
+},
+
+{
+  position:
+      {
+        lat: 44.945910,
+        lng: 26.033682
+      },
+      label:
+      {
+        color : 'white',
+        text:"Hotel Forum Ploiesti"
+      },
+      title:"Hotel Forum Ploiesti",
+      info:"Nume: Hotel Forum Ploiesti - Adresa: Strada Gheorghe Doja 215 A, Ploiești 100176 - Telefon: 0268 416 080 - Tip-Serviciu : Cazare",
+
+     options:
+     {
+      animation: google.maps.Animation.DROP
+     },
+
+},
+
+
+{
+  position:
+      {
+        lat: 44.937033,
+        lng: 26.043387
+      },
+      label:
+      {
+        color : 'white',
+        text:"Hotel Club Seva"
+      },
+      title:"Hotel Club Seva",
+      info:"Nume: Hotel Club Seva - Adresa: Strada Erupției 1, Câmpina 105600 - Telefon: 0268 416 080 - Tip-Serviciu : Cazare",
+
+     options:
+     {
+      animation: google.maps.Animation.DROP
+     },
+
 }
 
-    
-  ];
-  infoContent;
-  
+];
 
+  
+  constructor(public toastController: ToastController, private router: Router,public firebaseService:FirebaseService) {}
   ngOnInit() {
+
+  }
+  //Functie logout
+  logout()
+  {
+    this.firebaseService.logout();
+    this.Logout.emit();
+    this.router.navigateByUrl('/login');
+  }
+
+
+
+  //Obtine locatia curenta a utilizatorului daca apasa butonul
+  findmyLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = {
-        lat: 45.651879,
-        lng: 25.598016,
+        lat: 45.657974,
+        lng: 25.601198,
       }
     })
   }
-
-  zoomIn() {
-    if (this.zoom < this.options.maxZoom) this.zoom++
-  }
-
-  zoomOut() {
-    if (this.zoom > this.options.minZoom) this.zoom--
-  }
-
+  //Click event pentru toast
   click(event: google.maps.MouseEvent) {
-    console.log(event)
+    this.presentToast();
+    
   }
 
-  logCenter() {
-    console.log(JSON.stringify(this.map.getCenter()))
-  }
-
-  addMarker() {
+  //Functie add markers
+ addMarker() {
     this.markers.push({
       position: {
         lat: 45.651879,
@@ -108,17 +162,26 @@ export class MapsPage implements OnInit {
         animation: google.maps.Animation.DROP,
       },
     })
-
-
-    
-  }
-
+}
   openInfo(marker: MapMarker, content) {
-    this.infoContent = content
+    this.infoContent=content;
     this.info.open(marker)
   }
+  //Toast pentru click oriunde pe harta
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Apasa pe unul din markere-le prezente pe harta.',
+      duration: 2000
+    });
+    toast.present();
+  }
 
- 
+  //GoToFilters
+  filters()
+  {
+    this.router.navigateByUrl('/filter');
+  }
+
 }
 
 

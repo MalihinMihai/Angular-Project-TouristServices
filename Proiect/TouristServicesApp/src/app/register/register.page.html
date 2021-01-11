@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>{{ folder }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding-top>
+  <div class="roundshape"></div>
+  <div class="text-block-welcome"><p>WELCOME!</p></div>
+  <div class="text-block-signin"><p>SIGN UP ...</p></div>
+  <form>
+      <ion-item>
+          <ion-label position="floating" style="text-align:center">Email</ion-label>
+          <ion-input type="text" #Email></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label  position="floating center" style="text-align:center">Password</ion-label>
+          <ion-input type="text" #Password></ion-input>
+      </ion-item>
+     
+<ion-button (click)="register(Email.value,Password.value)"type="submit" expand="block">SIGN UP</ion-button>
+<br>
+<br>
+<ion-button (click)="goToLogin()"expand="block">already have an account? Login</ion-button>
+  </form>
+</ion-content>

@@ -11,7 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import firebaseConfig from './firebase'
+import firebaseConfig from './firebase';
+import {FormsModule} from '@angular/forms';
+import { FirebaseService } from './services/firebase.service';
 
 
 
@@ -25,7 +27,7 @@ import firebaseConfig from './firebase'
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    
+    FormsModule
     
     
   ],
@@ -33,6 +35,7 @@ import firebaseConfig from './firebase'
     StatusBar,
     SplashScreen,
     AngularFirestore,
+    FirebaseService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
