@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
    
    {
     err = err.toString();
-    console.log(err);
+    
     if(this.errors[0] == err)
     {
       this.presentToast_parola();

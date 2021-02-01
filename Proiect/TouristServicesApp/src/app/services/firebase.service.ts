@@ -15,6 +15,7 @@ export class FirebaseService {
   {
     await this.firebaseAuth.signInWithEmailAndPassword(email,parola).then(res=>{
       this.isLogin=true;
+      //Se face conversia obiectului JSON in string
       localStorage.setItem('user',JSON.stringify(res.user))
     })
   }
@@ -24,6 +25,7 @@ export class FirebaseService {
   {
     await this.firebaseAuth.createUserWithEmailAndPassword(email,parola).then(res=>{
       this.isLogin=true;
+      //Se face conversia obiectului JSON in string
       localStorage.setItem('user',JSON.stringify(res.user))
     })
   }
